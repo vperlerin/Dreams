@@ -1,0 +1,29 @@
+<p>Learn about your deep secrets and hidden feelings by interpreting your dreams.</p>
+ 
+<form class="main-f" method="POST">
+    <div class="cont">
+
+        <? if(!empty($input['not_found'])): ?>
+        <div class="msg">
+            <p><strong>Sorry, we were not able to find any of the symbols in your dream.</strong><br/>
+            But we want to make sure you are able to find out what your dream means so please do the following:</p>
+            <ul>
+                <li>Make sure you spelled everything correctly.</li>
+                <li>Try shortening the dream or just entering the symbols and or keywords.</li>
+                <li>Try entering a different word that is used for the same thing, for example instead of typing "clash" try "fight".</li>
+            </ul>
+        </div>
+        <? endif; ?>
+
+        <input type="hidden" value="1" name="sub"/>
+        <textarea name="dream" placeholder="Enter few keywords or your entire dream here" rows="6" required><? if(!empty($input['dream'])): echo $input['dream']; endif; ?></textarea>
+        <button type="submit">What does your dream means?</button>
+        <p>
+            To guide you with your dreams interpretations, we have interpreted over 3000 keywords and symbols These meanings are in no way, the final say in what YOUR dream  means, but it will inspire you to explore and offer a suggestive starting point for understanding your own dreams. 
+        </p>
+        <p>
+            Every detail, even the most minute element in your dream is important and must be considered when analyzing your dreams. Each symbol represents a feeling, a mood, a memory or something from your unconscious. Look closely at the characters, animals, objects, places, emotions, and even color and numbers that are depicted in your dreams. Even the most trivial symbol can be significant. 
+        </p>
+    </div>
+</form>
+

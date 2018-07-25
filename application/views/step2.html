@@ -1,0 +1,47 @@
+<form class="main-f" method="POST">
+    <div class="cont">
+        <p>Complete the form below and we will send you your dream interpretation within few minutes.</p>
+
+        <input type="hidden" value="1" name="sub"/>
+        <input type="hidden" value="<?= $input['dream']; ?>" name="dream"/>
+
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" required placeholder="Your name" autocomplete="given-name">
+
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" required placeholder="Your last name" autocomplete="family-name">
+
+        <label for="rstatus">Relationship Status</label>
+        <select name="rstatus" id="rstatus" required>
+            <option value="">Select a status</option>
+            <option value="single">Single</option>
+            <option value="single_but_in_love">Single but in love</option>
+            <option value="happily_married">Happily married</option>
+            <option value="difficult_mariage">Difficult mariage</option>
+            <option value="in_a_relationship">In a relationship</option>
+        </select>
+
+        <label for="wish">Your greastest wish</label>
+        <select name="wish" id="wish" required>
+            <option value="">Select a wish</option>
+            <option value="money">Money</option>
+            <option value="find_new_love">Find new love</option>
+            <option value="fix_current_love">Fix current love</option>
+            <option value="luck">Luck</option>
+            <option value="work">Work</option>
+        </select>
+
+        <label for="employ">Your employment status</label>
+        <select name="employ" id="employ" required>
+                <option value="">Select a status</option>
+        </select>
+
+        <label for="email">Your Email</label>
+        <input type="text" id="email" name="email" required placeholder="Your email" autocomplete="email">
+
+
+
+        <button type="submit">Send me my dream interpretation</button>
+     
+    </div>
+</form>
