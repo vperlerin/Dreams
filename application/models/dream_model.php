@@ -27,15 +27,36 @@ class Dream_Model {
         return DBF::query($sql,array(),'num');
     } 
 
-    // Test if we already have an interpretation 
-    // for at least one term passed
-    static public function test_inter($binds) {
-        $terms = explode(',', $binds['terms']);
+     // Test if we already have an interpretation 
+    // for at least one term passed but not with the inter_id passed in arg
+    static public function test_inter_but_inter_id($binds) {
+        $terms = explode(',', strtolower($binds['terms']));
      
         // Build query
         $where = array();
         foreach($terms as $t):
-            $where[] = "term collate UTF8_GENERAL_CI LIKE '".$t."'";
+            $where[] = "term collate UTF8_GENERAL_CI LIKE '".rtrim(ltrim($t))."'";
+        endforeach;
+
+        $sql = "SELECT inter_id
+                FROM   terms
+                WHERE  (" . implode(' OR ', $where) .
+                ") AND inter_id != " . $binds['inter_id'];
+       
+        return DBF::query($sql,array(),'num');
+                 
+    }
+
+    // Test if we already have an interpretation 
+    // for at least one term passed
+    static public function test_inter($binds) {
+        $terms = array_unique(explode(',', strtolower($binds['terms'])));
+ 
+     
+        // Build query
+        $where = array();
+        foreach($terms as $t):
+            $where[] = "term collate UTF8_GENERAL_CI LIKE '".rtrim(ltrim($t))."'";
         endforeach;
 
         $sql = "SELECT inter_id
@@ -52,11 +73,11 @@ class Dream_Model {
 
         if(empty($test)):
 
-            $terms = explode(',', $binds['terms']);
+            $terms = array_unique(explode(',', strtolower($binds['terms'])));
             
             // Add the interpretation
             $sql = " INSERT INTO interpretation  
-                    SET inter = :inter  ";
+                     SET inter = :inter  ";
             $inter_id = DBF::set($sql,$binds);
 
             foreach($terms as $t):
@@ -69,7 +90,7 @@ class Dream_Model {
                 DBF::set($sql,$binds);
             endforeach;    
 
-            return true;
+            return $inter_id;
 
         else:
             return $test;
@@ -86,7 +107,8 @@ class Dream_Model {
         foreach($inters as $k=>$inter) {
             $sql = "SELECT term
                     FROM   terms
-                    WHERE  inter_id = " . $inter['inter_id'];
+                    WHERE  inter_id = " . $inter['inter_id'] . "
+                    ORDER BY term  ASC";
             $term  = DBF::query($sql,array(),'num');
           
             $inters[$k]['terms']  = implode(', ', array_map(function ($entry) {
@@ -95,6 +117,14 @@ class Dream_Model {
         } 
 
         return $inters;
+    }
+
+
+    static public function get_interpretations($binds) {
+        $sql = "SELECT inter
+                FROM interpretation
+                WHERE inter_id IN (" . implode(',',$binds['inter_ids']) .")";
+        return DBF::query($sql,array(),'num');
     }
 
     // Return all terms with inter_id
@@ -107,8 +137,9 @@ class Dream_Model {
     // Return all terms and interpration from an inter_id
     static public function get_inter_and_terms($binds) {
         $sql =  "SELECT *
-                 FROM terms
-                 WHERE inter_id = :inter_id";
+                 FROM  terms
+                 WHERE inter_id = :inter_id
+                 ORDER BY term  ASC";
         $res['terms'] = DBF::query($sql,$binds,'num');
 
         $sql = "SELECT *
@@ -117,7 +148,22 @@ class Dream_Model {
         $res['inter'] = DBF::query($sql,$binds,'num');
 
         return $res;
+    }
 
+
+    // Delete an interpretation and all the terms relate to it
+    static public function delete_interpretation($binds) {
+       
+        $sql = "DELETE
+                FROM   terms
+                WHERE  inter_id =:inter_id";
+        DBF::query($sql,$binds);
+
+        $sql = "DELETE
+                FROM interpretation
+                WHERE inter_id =:inter_id";
+        
+        DBF::query($sql,$binds);
     }
 
 }

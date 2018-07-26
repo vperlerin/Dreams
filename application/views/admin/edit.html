@@ -1,0 +1,39 @@
+<div class="container-fluid">
+
+        <h2 class="mt-5" style="border-bottom:1px solid #ccc">Edit terms / interpretation</h2>
+        <div class="container">
+          <form class=" mt-5" method="POST">
+                
+              <? if(!empty($input['errors'])):?>
+                <div class="alert alert-danger mb-5" role="alert">
+                  <?= implode('<br/>', $input['errors']); ?>
+                </div>
+              <? endif; ?>
+
+              <? if(isset($_GET['val'])): ?>
+                <div class="alert alert-success mb-5">
+                    Updated.
+                </div>
+              <? endif; ?>
+    
+              <input type="hidden" value="1" name="sub"/>
+              <input type="hidden" value="<?= $input['inter_id']; ?>" name="inter_id"/>
+
+
+              <div class="form-group">
+                  <label for="terms"><strong>Terms (separated with commas)</strong></label>
+                  <input type="text" name="terms" class="form-control" id="terms" placeholder="Ex: cheater, cheating, cheat, cheats, cheated,..."
+                    <? if(!empty($input['terms'])): ?>value="<?= $input['terms']; ?>"<? endif; ?></p>
+                   
+              </div>
+              <div class="form-group">
+                  <label for="inter"><strong>Interpretation</strong></label>
+                  <textarea class="form-control" name="inter" id="inter" placeholder="Ex: To dream of being cheated in business, you will meet designing people who will seek to close your avenues to fortune. For young persons to dream that they are being cheated in games, portend they will lose their sweethearts through quarrels  and  misunderstand ings."><? if(!empty($input['inter'])): ?><?= $input['inter']; ?><? endif; ?>
+                  </textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div> 
+            </form>
+        </div>
+</div>

@@ -13,7 +13,8 @@ Class Check_terms {
         $terms = Dream_model::get_all_terms();
 
         // Remove the quotations marks and the new lines
-        $string = str_replace('"', "",str_replace("'", "", trim(preg_replace('/\s+/', ' ', $string))));
+        $string = strtolower(str_replace('"', "",str_replace("'", "", trim(preg_replace('/\s+/', ' ', $string)))));
+        $string = preg_replace("#[[:punct:]]#", " ", $string);
  
         // If we don't have any space, add a space at the end 
         // so we can test toward the [term] + space
