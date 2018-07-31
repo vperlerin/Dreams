@@ -23,12 +23,21 @@ Class Check_terms {
         endif;
         
         foreach($terms as $t):
+ 
             $test = strpos( $string ,$t['term']. ' ');
-            if($test !== false) {
-                $res[]= array('inter_id'=>$t['inter_id'],'term'=>$t[term]);
-            }
-        endforeach;
 
+            if($test !== false) { 
+                // Get the generic term for the interpretation
+                $generic_term =  Dream_model::get_generic(array('inter_id'=>$t['inter_id'],'term'=>$t[term]));
+
+                if(!in_array(array('inter_id'=>$t['inter_id'],'term'=>$generic_term),$res)):
+                    $res[]= array('inter_id'=>$t['inter_id'],'term'=>$generic_term);
+                endif;
+            }
+
+        endforeach;
+ 
+   
         return $res;
     }
 

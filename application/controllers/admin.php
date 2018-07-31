@@ -122,8 +122,11 @@ class admin_controller extends Template_Controller {
         $content = new View('/admin/addterms.html');  
 
         if(!empty($this->input['sub'])):
-          
-
+            
+            if(empty($this->input['generic'])):
+                $this->input['errors'][] = 'You need to enter one generic term';
+            endif;
+ 
             if(empty($this->input['terms'])):
                 $this->input['errors'][] = 'You need to enter a least one term';
             endif;
@@ -131,8 +134,7 @@ class admin_controller extends Template_Controller {
             if(empty($this->input['inter'])):
                 $this->input['errors'][] = 'You need to enter a least one interpretation';
             endif;
- 
-
+  
             if(empty($this->input['errors'])):
                 $res = Dream_model::add_inter($this->input);
                 if(!is_numeric($res)):

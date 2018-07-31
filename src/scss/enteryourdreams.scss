@@ -23,6 +23,22 @@ select:-webkit-autofill:focus {
 /**
 * Push Bottom
 */
+
+h1, h2 {
+  text-align:center;
+}
+
+.mails {
+  text-align:center;
+  a {
+    display:inline-block;
+    padding:.5rem;
+    img {
+      width:150px;
+    }
+  }
+}
+
 .content {
   min-height: calc(100vh - 100px);
   @media(max-width:767px) {

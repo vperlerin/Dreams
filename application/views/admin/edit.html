@@ -19,18 +19,19 @@
               <input type="hidden" value="1" name="sub"/>
               <input type="hidden" value="<?= $input['inter_id']; ?>" name="inter_id"/>
 
-
               <div class="form-group">
-                  <label for="terms"><strong>Terms (separated with commas)</strong></label>
-                  <input type="text" name="terms" class="form-control" id="terms" placeholder="Ex: cheater, cheating, cheat, cheats, cheated,..."
-                    <? if(!empty($input['terms'])): ?>value="<?= $input['terms']; ?>"<? endif; ?></p>
-                   
-              </div>
-              <div class="form-group">
-                  <label for="inter"><strong>Interpretation</strong></label>
-                  <textarea class="form-control" name="inter" id="inter" placeholder="Ex: To dream of being cheated in business, you will meet designing people who will seek to close your avenues to fortune. For young persons to dream that they are being cheated in games, portend they will lose their sweethearts through quarrels  and  misunderstand ings."><? if(!empty($input['inter'])): ?><?= $input['inter']; ?><? endif; ?>
-                  </textarea>
-              </div>
+                  <label for="generic"><strong>Generic Term for the interpretation (the one that will be used in the email)</strong></label>
+                  <input type="text" name="generic" class="form-control" id="generic" placeholder="Ex: cheating" <? if(!empty($input['generic'])): ?>value="<?= $input['generic']; ?>"<? endif; ?>>
+                 </div>
+                <div class="form-group">
+                    <label for="terms"><strong>Other form of the generic term or synonyms (separated with commas)</strong></label>
+                    <input type="text" name="terms" class="form-control" id="terms" placeholder="Ex: cheater, cheat, cheats, cheated, affair, adultery..." <? if(!empty($input['terms'])): ?>value="<?= $input['terms']; ?>"<? endif; ?>>
+                </div>
+                <div class="form-group">
+                    <label for="inter"><strong>Interpretation</strong></label>
+                    <textarea class="form-control" name="inter" id="inter" placeholder="Ex: To dream of being cheated in business, you will meet designing people who will seek to close your avenues to fortune. For young persons to dream that they are being cheated in games, portend they will lose their sweethearts through quarrels  and  misunderstand ings."><? if(!empty($input['inter'])): ?><?= $input['inter']; ?><? endif; ?></textarea>
+                </div> 
+ 
               <div class="form-group">
                 <button type="submit" class="btn btn-primary">Update</button>
               </div> 
